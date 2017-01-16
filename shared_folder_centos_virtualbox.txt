@@ -1,2 +1,36 @@
-#!/bin/bash
-# shared_folder_centos7_virtualbox
+# The documentation [1] for how to install guest additions 
+# for CentOS (Linux) on a virtual host in VirtualBOX.
+
+# Update your system
+yum -y update
+
+# Install the required packages
+yum -y install gcc kernel-devel make bzip2
+
+# Reboot your system
+reboot
+
+# On your VirtualBOX window click the button:
+#  Devices -> Install Guest Additions CD Image
+
+# Create and mount the ISO image with the guest additions
+mkdir /cdrom
+mount /dev/cdrom /cdrom
+
+# Install guest additions
+/cdrom/VBoxLinuxAdditions.run
+
+# On your VirtualBOX window click next:
+# Devices -> Shared Folders -> Shared Folders Settings...
+# Press "Adds new shared folder" icon
+# Select Path and name it (i name it as 'folder'). 
+# Check boxes: "Auto-mount" to automount and "Make Permanent". 
+# Then press "OK".
+mkdir /my_mount
+mount -t vboxsf folder /my_folder
+
+# Enjoy it.
+# If you want to unmount
+umount /my_folder
+
+[1] - http://www.virtualbox.org/manual/ch04.html
